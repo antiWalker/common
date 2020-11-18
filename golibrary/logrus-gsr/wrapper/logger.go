@@ -2,7 +2,7 @@ package wrapper
 
 import (
 	"github.com/sirupsen/logrus"
-	"gitlab.mfwdev.com/gsr/log"
+	"github.com/antiWalker/common/gsr/log"
 	"os"
 )
 

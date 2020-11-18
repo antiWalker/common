@@ -6,7 +6,7 @@ import (
 	"github.com/astaxie/beego/config"
 	"github.com/astaxie/beego/orm"
 	_ "github.com/go-sql-driver/mysql"
-	"gitlab.mfwdev.com/inner-sdk/skipper-golang/sdk"
+	"github.com/antiWalker/common/inner-sdk/skipper-golang/sdk"
 	"os"
 	"strconv"
 	"strings"
