@@ -1,1 +1,1 @@
-module gitlab.mfwdev.com/gsr/log
+module github.com/antiWalker/common/gsr/log
