@@ -1,12 +1,10 @@
 package orm
 
 import (
-	"encoding/json"
 	"fmt"
 	"github.com/astaxie/beego/config"
 	"github.com/astaxie/beego/orm"
 	_ "github.com/go-sql-driver/mysql"
-	"github.com/antiWalker/common/inner-sdk/skipper-golang/sdk"
 	"os"
 	"strconv"
 	"strings"
@@ -116,17 +114,18 @@ func getDbConfigs(dbGroup map[string]groups, appGroup string, appName string) ma
 	configs = make(map[string]dbConfig)
 
 	for _, group := range dbGroup {
-		content, sdk_err := sdk.GetDbConf(group.Key, appGroup+"."+appName)
-
-		if sdk_err != nil {
-			panic(sdk_err)
-		}
 
 		var dbconfig dbConfig
-		err := json.Unmarshal([]byte(content), &dbconfig)
-		if err != nil {
-			panic(err)
-		}
+		dbconfig.DbName="test"
+		dbconfig.UserName="root"
+		dbconfig.Host="localhost"
+		dbconfig.Port=3306
+		//err := json.Unmarshal([]byte(content), &dbconfig)
+		//if err != nil {
+		//	panic(err)
+		//}
+		//var dbconfig dbConfig
+		dbconfig.Password="123456"
 		configs[group.Name] = dbconfig
 	}
 

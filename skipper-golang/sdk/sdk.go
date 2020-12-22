@@ -14,8 +14,8 @@ import (
 )
 
 const (
-	ENV        = "K8S_CLUSTER_TYPE"
-	REMOTEADDR = "skipper.console.ab"
+	ENV        = ""
+	REMOTEADDR = "localhost"
 
 	APPNAMESPACE  = "APP_NAMESPACE"
 	APPNAME       = "APP_NAME"
@@ -26,7 +26,8 @@ const (
 )
 
 var (
-	url       = "http://%s:8987/getdata/%s/%s"
+	//url       = "http://%s:80/getdata/%s/%s"
+	url       = "http://localhost/t.php?"
 	configDir = "/mfw_data/operation/config/"
 )
 
@@ -82,6 +83,7 @@ func GetString(key string, application ...string) (string, error) {
 	if ok {
 		log.Println(err)
 		retFile, err := getFromFile(app, key)
+		fmt.Print(retFile)
 		if err != nil {
 			return "", err
 		}
@@ -106,6 +108,7 @@ func GetDbConf(dbKey string, application ...string) (string, error) {
 	if key != "" {
 		dbKey = key
 	}
+	fmt.Print(GetString(dbKey, app))
 	return GetString(dbKey, app)
 }
 
@@ -192,6 +195,8 @@ func getFromClient(application, key string) (interface{}, error, bool) {
 		clientTimeout = 100
 	} else {
 		geturl = fmt.Sprintf(url, REMOTEADDR, application, key)
+		geturl = "http://127.0.0.1/t.php"
+		//fmt.Print(geturl)
 		clientTimeout = 800
 	}
 	clientSet := &http.Client{
@@ -202,6 +207,7 @@ func getFromClient(application, key string) (interface{}, error, bool) {
 		return "", err, true
 	}
 	resp, err := clientSet.Do(req)
+
 	if err != nil {
 		return "", err, true
 	}
@@ -210,6 +216,7 @@ func getFromClient(application, key string) (interface{}, error, bool) {
 		return "", errors.New(fmt.Sprintf("request url %s return code is %d", geturl, resp.StatusCode)), false
 	}
 	result, _ := ioutil.ReadAll(resp.Body)
+	//fmt.Println(resp.Body)
 	ret := &SkipperResponse{}
 	json.Unmarshal(result, ret)
 	if ret.Code == 1 {
