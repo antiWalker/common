@@ -1,8 +1,8 @@
 package wrapper
 
 import (
-	"github.com/sirupsen/logrus"
 	"github.com/antiWalker/common/gsr/log"
+	"github.com/sirupsen/logrus"
 	"os"
 )
 
