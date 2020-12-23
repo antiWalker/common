@@ -50,6 +50,12 @@ func init() {
 	if len(appGroup) == 0 {
 		appGroup = appConf.String("appgroup")
 	}
+	//db
+	DbName := databaseConf.String("DbName")
+	UserName := databaseConf.String("UserName")
+	Host := databaseConf.String("Host")
+	Port, _ := databaseConf.Int64("Port")
+	Password := databaseConf.String("Password")
 
 	checkEmpty(emptyVal{"appname", appName, "app.conf"}, emptyVal{"appgroup", appGroup, "app.conf"})
 
@@ -64,20 +70,24 @@ func init() {
 	}
 
 	// 支持多组
-	addMultiple(databaseConf, dbGroup)
+	//addMultiple(databaseConf, dbGroup)
 
 	/*获取多个数据库配置*/
-	configs := getDbConfigs(dbGroup, appGroup, appName)
+	//configs := getDbConfigs(dbGroup, appGroup, appName)
+	configs := getDbConfigsOne(dbGroup,DbName,UserName,Host,Port,Password)
 
-	registerDev(configs, databaseConf)
+	//registerDev(configs, databaseConf)
+	/*
+		if len(configs) == 0 {
+			panic("there are no databases available")
+		}
 
-	if len(configs) == 0 {
-		panic("there are no databases available")
-	}
 
-	if !checkDefaultDb(configs) {
-		panic("must contain default database")
-	}
+
+		if !checkDefaultDb(configs) {
+			panic("must contain default database")
+		}
+	*/
 	//统一注册
 	register(configs)
 }
@@ -108,7 +118,25 @@ func checkDefaultDb(configs map[string]dbConfig) bool {
 	}
 	return false
 }
+func getDbConfigsOne(dbGroup map[string]groups,DbName string ,UserName string ,Host string ,Port int64 ,Password string) map[string]dbConfig {
+	var configs map[string]dbConfig
+	configs = make(map[string]dbConfig)
+	var dbconfig dbConfig
+	dbconfig.DbName= DbName
+	dbconfig.UserName= UserName
+	dbconfig.Host= Host
+	dbconfig.Port= Port
+	//err := json.Unmarshal([]byte(content), &dbconfig)
+	//if err != nil {
+	//	panic(err)
+	//}
+	//var dbconfig dbConfig
+	dbconfig.Password= Password
+	configs["default"] = dbconfig
 
+
+	return configs
+}
 func getDbConfigs(dbGroup map[string]groups, appGroup string, appName string) map[string]dbConfig {
 	var configs map[string]dbConfig
 	configs = make(map[string]dbConfig)
