@@ -21,6 +21,7 @@
   <component name="ChangeListManager">
     <list default="true" id="67ed2a29-23c3-4a47-938a-2b1cbfcbb463" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/register-golang/db/orm/orm.go" beforeDir="false" afterPath="$PROJECT_DIR$/register-golang/db/orm/orm.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
